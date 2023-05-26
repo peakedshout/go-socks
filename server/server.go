@@ -25,12 +25,12 @@ type SocksServerConfig struct {
 	TlnAddr string
 
 	SocksAuthCb   SocksAuthCb
-	RelayConfig   *SocksRelayConfig
-	VersionSwitch share.SocksVersionSwitch
-	CMDSwitch     share.SocksCMDSwitch
-	ConnTimeout   time.Duration
-	DialTimeout   time.Duration
-	BindTimeout   time.Duration //default 5s
+	RelayConfig   *SocksRelayConfig        //relay config
+	VersionSwitch share.SocksVersionSwitch //Supported version
+	CMDSwitch     share.SocksCMDSwitch     //Supported operations
+	ConnTimeout   time.Duration            //this is the lifetime to complete the configuration
+	DialTimeout   time.Duration            //This is the time to dial
+	BindTimeout   time.Duration            //default 5s
 }
 type SocksRelayConfig struct {
 	Addr         string
@@ -40,6 +40,10 @@ type SocksRelayConfig struct {
 
 	key tool.Key
 }
+
+// SocksAuthCb
+//	priority determines which validation method is preferred;
+//	if the validation method is the same, the one with the smaller code is preferred
 type SocksAuthCb struct {
 	Socks4UserIdAuth func(share.Socks4UserId) byte
 
