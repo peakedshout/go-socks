@@ -14,11 +14,11 @@ func Socks4CONNECTContext(address string, userId share.Socks4UserId, forward cli
 	return client.NewSocks4ConnCONNECTContext(address, userId, forward)
 }
 
-func Socks4Bind(address string, userId share.Socks4UserId, forward client.SocksDialer, bindCb client.AddrCb) (client.SocksDialer, error) {
+func Socks4BIND(address string, userId share.Socks4UserId, forward client.SocksDialer, bindCb client.AddrCb) (client.SocksDialer, error) {
 	return client.NewSocks4ConnBIND(address, userId, forward, bindCb)
 }
 
-func Socks4BindContext(address string, userId share.Socks4UserId, forward client.SocksContextDialer, bindCb client.AddrCb) (client.SocksContextDialer, error) {
+func Socks4BINDContext(address string, userId share.Socks4UserId, forward client.SocksContextDialer, bindCb client.AddrCb) (client.SocksContextDialer, error) {
 	return client.NewSocks4ConnBINDContext(address, userId, forward, bindCb)
 }
 
@@ -30,11 +30,11 @@ func Socks5CONNECTContext(address string, auth *client.Socks5Auth, forward clien
 	return client.NewSocks5ConnCONNECTContext(address, auth, forward)
 }
 
-func Socks5Bind(address string, auth *client.Socks5Auth, forward client.SocksDialer, bindCb client.AddrCb) (client.SocksDialer, error) {
+func Socks5BIND(address string, auth *client.Socks5Auth, forward client.SocksDialer, bindCb client.AddrCb) (client.SocksDialer, error) {
 	return client.NewSocks5ConnBIND(address, auth, forward, bindCb)
 }
 
-func Socks5BindContext(address string, auth *client.Socks5Auth, forward client.SocksContextDialer, bindCb client.AddrCb) (client.SocksContextDialer, error) {
+func Socks5BINDContext(address string, auth *client.Socks5Auth, forward client.SocksContextDialer, bindCb client.AddrCb) (client.SocksContextDialer, error) {
 	return client.NewSocks5ConnBINDContext(address, auth, forward, bindCb)
 }
 

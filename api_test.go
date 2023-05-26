@@ -154,7 +154,7 @@ func TestSocks5CONNECT(t *testing.T) {
 	}
 }
 
-func TestSocks4Bind(t *testing.T) {
+func TestSocks4BIND(t *testing.T) {
 	taddr := &net.TCPAddr{
 		IP:   net.IP{127, 0, 0, 1},
 		Port: randPort(),
@@ -185,7 +185,7 @@ func TestSocks4Bind(t *testing.T) {
 	checkErr(err)
 	defer s.Close(nil)
 	time.Sleep(1 * time.Second)
-	sd, err := Socks4Bind("127.0.0.1:17999", share.Socks4UserId{123, 223}, nil, func(addr net.Addr) error {
+	sd, err := Socks4BIND("127.0.0.1:17999", share.Socks4UserId{123, 223}, nil, func(addr net.Addr) error {
 		go func() {
 			wg.Add(1)
 			conn, err := dr.Dial("tcp", addr.String())
@@ -210,7 +210,7 @@ func TestSocks4Bind(t *testing.T) {
 	wg.Wait()
 }
 
-func TestSocks5Bind(t *testing.T) {
+func TestSocks5BIND(t *testing.T) {
 	taddr := &net.TCPAddr{
 		IP:   net.IP{127, 0, 0, 1},
 		Port: randPort(),
@@ -241,7 +241,7 @@ func TestSocks5Bind(t *testing.T) {
 	checkErr(err)
 	defer s.Close(nil)
 	time.Sleep(1 * time.Second)
-	sd, err := Socks5Bind("127.0.0.1:17999", &client.Socks5Auth{
+	sd, err := Socks5BIND("127.0.0.1:17999", &client.Socks5Auth{
 		Socks5AuthNOAUTH: true,
 	}, nil, func(addr net.Addr) error {
 		go func() {
@@ -544,7 +544,7 @@ func TestSocks5RelayBIND(t *testing.T) {
 	checkErr(err)
 	defer s.Close(nil)
 	time.Sleep(1 * time.Second)
-	sd, err := Socks5Bind("127.0.0.1:17999", &client.Socks5Auth{
+	sd, err := Socks5BIND("127.0.0.1:17999", &client.Socks5Auth{
 		Socks5AuthPASSWORD: &share.Socks5AuthPassword{
 			User:     "123",
 			Password: "456",
@@ -730,7 +730,7 @@ func TestSocks4RelayBIND(t *testing.T) {
 	defer s.Close(nil)
 	time.Sleep(1 * time.Second)
 
-	sd, err := Socks4Bind("127.0.0.1:17999", share.Socks4UserId{123, 223}, nil, func(addr net.Addr) error {
+	sd, err := Socks4BIND("127.0.0.1:17999", share.Socks4UserId{123, 223}, nil, func(addr net.Addr) error {
 		go func() {
 			wg.Add(1)
 			conn, err := dr.Dial("tcp", addr.String())
@@ -854,7 +854,7 @@ func TestSocks5RelayBIND2(t *testing.T) {
 	checkErr(err)
 	defer s.Close(nil)
 	time.Sleep(1 * time.Second)
-	sd, err := Socks5Bind("127.0.0.1:17999", &client.Socks5Auth{
+	sd, err := Socks5BIND("127.0.0.1:17999", &client.Socks5Auth{
 		Socks5AuthPASSWORD: &share.Socks5AuthPassword{
 			User:     "123",
 			Password: "456",
@@ -1040,7 +1040,7 @@ func TestSocks4RelayBIND2(t *testing.T) {
 	defer s.Close(nil)
 	time.Sleep(1 * time.Second)
 
-	sd, err := Socks4Bind("127.0.0.1:17999", share.Socks4UserId{123, 223}, nil, func(addr net.Addr) error {
+	sd, err := Socks4BIND("127.0.0.1:17999", share.Socks4UserId{123, 223}, nil, func(addr net.Addr) error {
 		go func() {
 			wg.Add(1)
 			conn, err := dr.Dial("tcp", addr.String())

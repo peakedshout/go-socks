@@ -15,7 +15,7 @@ func newServer() {
 	// If you want to customize the configuration, create a config to fill in what you need
 	// Like this, you support socks5 CONNECT/BIND and whether the user is user/password
 	config := &server.SocksServerConfig{
-		TlnAddr: "",
+		TlnAddr: ":23333",
 		SocksAuthCb: server.SocksAuthCb{
 			Socks5AuthPASSWORD: func(password share.Socks5AuthPassword) bool {
 				return password.IsEqual("user", "password")
