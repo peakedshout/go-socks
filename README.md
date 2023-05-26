@@ -1,6 +1,6 @@
 ***
 # go-socks
-###### *A golang based development support socks4/4 a / 5 protocol tool library, support the CONNECT/BIND/UDPASSOCIATE operations, the supplementary relay tools.*
+###### *A golang based development support socks4/4a/5 protocol tool library, support the CONNECT/BIND/UDPASSOCIATE operations, the supplementary relay tools.*
 ***
 ### [简体中文](./README_CN.md)/English
 ***
