@@ -23,7 +23,7 @@
 ***
 ## 怎么使用？
 - ``go get github.com/peakedshout/go-socks``
-- 具体教程看wiki
+- 具体教程看[这里](./_examples)
 ***
 ## TODO
 - [x] CONNECT/BIND/UDPASSOCIATE
