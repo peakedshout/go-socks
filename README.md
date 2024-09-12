@@ -8,12 +8,11 @@
 - The standards used in socks5 are rfc1929 and rfc1928, where CONNECT has been tested by (golang.org/x/net/proxy)proxy.SOCKS5.
 - The standard adopted by socks4/4a is a public standard (I don't know which rfc was adopted by socks4/4a compared to socks5, but I found a more reliable document, if you know which rfc, please let me know).
 - Although this library, I have done a little bit of freedom, it is obviously not for everyone, if you have better ideas or suggestions, or if you think my library implementation is wrong, please file an issue and fuck me!
-- Inevitably, I included a library I wrote earlier as a relay extension, so if you don't like it, you don't have to use it. It won't hurt you.
+- Inevitably, the library has been refactored, incorporating some of my new thinking, and some of the original APIs have also been refactored, but it has also become more powerful and freer.
 - If you find it useful, please give us ✨.
 ***
 ## What can go-socks do?
 - go-socks integrates socks4, socks4a and method of socks5 support the CONNECT/BIND/UDPASSOCIATE operations
-- And it kindly comes with the relay tool
 - The library in the authentication, configuration has a good degree of freedom, is based on socks server as the center for expansion
 ***
 ## Why is this thing here?
@@ -28,10 +27,20 @@
 ## TODO
 - [x] CONNECT/BIND/UDPASSOCIATE
 - [x] socks4/4a/5
-- [ ] Better auth support
-- [ ] Custom channels
-- [ ] Customizing relay
+- [x] Better auth support
+- [x] Custom channels
+- [x] Customizing relay
+- [ ] Command line support
+- [ ] Easier to use?
 ***
 ## Projects that use the library
-- [cfc-proxyNet](https://github.com/peakedshout/cfc-proxyNet)
+- No, if you use it and want to be included in the list, you can contact me.
+***
+## Contrast v 1
+- Updated UDPASSOCIATE implementation logic (see [here](https://github.com/peakedshout/go-pandorasbox/tree/master/xnet/proxy/socks) for details)
+- Refactored the writing method to make the code style closer to net
+- Extremely adopts callback implementation, with more powerful functions and freer operations.
+- Use callback implementation to solve channel problems and authentication problems
+- Refactoring caused the author to lose a lot of hair (became stronger?)
+- One step closer to the most powerful go-socks library
 ***

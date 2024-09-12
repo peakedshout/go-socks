@@ -1,31 +1,49 @@
 package _examples
 
 import (
-	"github.com/peakedshout/go-CFC/tool"
-	socks "github.com/peakedshout/go-socks"
-	"github.com/peakedshout/go-socks/server"
+	"context"
+	"github.com/peakedshout/go-socks"
+	"net"
 )
 
 func newRelay() {
-	// Note that this is private to the library, don't use it if you mind
-
-	// In general, use the default has had enough schooling, it has built up the CONNECT/BIND/UDPASSOCIATE agent
-	// If you need to customize, you can use socks.ListenRelayServer
-	// Note that rawKey must be a 32-bit byte
-	k := tool.NewId(1)
-	rs, _ := socks.ListenRelayServerDefault("127.0.0.1:18000", k)
-	defer rs.Close(nil)
-
-	// At the same time, set the RelayConfig value in the socsk server config, like so:
-	config := &server.SocksServerConfig{
-		RelayConfig: &server.SocksRelayConfig{
-			Addr:         "127.0.0.1:18000",
-			RawKey:       k,
-			KeepEncrypt:  false, //If you want to continue symmetrically encrypted channels, select true, which is enforced in UDPASSOCIATE mode
-			RelayTimeout: 0,
+	// If you want to do some relay service with this, then we'll show you a callback implementation
+	// Because it is a callback implementation, this library is very powerful and free.
+	// Or check out some implementations of handler_relay.go
+	_ = socks.ListenAndServe("tcp", ":12345", &socks.ServerConfig{
+		VersionSwitch: socks.VersionSwitch{},
+		CMDConfig: socks.CMDConfig{
+			SwitchCMDCONNECT: true,
+			CMDCONNECTHandler: func(ctx context.Context, addr string) (net.Conn, error) {
+				// relay conn , like it:
+				dial, err := net.Dial("tcp", "123.45.67.89:1011") // relay server
+				if err != nil {
+					return nil, err
+				}
+				// handle something ...
+				return dial, nil
+			},
+			SwitchCMDBIND: true,
+			CMDBINDHandler: func(ctx context.Context, ch chan<- net.Conn, raddr string) (laddr net.Addr, err error) {
+				// relay conn , like it:
+				dial, err := net.Dial("tcp", "123.45.67.89:1011") // relay server
+				if err != nil {
+					return nil, err
+				}
+				// handle something ...
+				ch <- dial
+				addr := new(net.Addr) // relay addr
+				return *addr, nil
+			},
+			SwitchCMDUDPASSOCIATE: true,
+			CMDCMDUDPASSOCIATEHandler: func(ctx context.Context, addr net.Addr) (net.PacketConn, error) {
+				// todo
+				return nil, nil
+			},
+			UDPDataHandler: nil,
 		},
-	}
-	// And then run it
-	s2, _ := socks.ListenSocks(config)
-	s2.Close(nil)
+		Socks5AuthCb: socks.S5AuthCb{
+			Socks5AuthNOAUTH: socks.DefaultAuthConnCb,
+		},
+	})
 }
