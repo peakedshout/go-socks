@@ -64,14 +64,14 @@ func (s5d *socks5Config) ListenPacketContext(ctx context.Context, network string
 	if err != nil {
 		return nil, err
 	}
-	conn, err = s5d.authSocks5(conn)
+	aconn, err := s5d.authSocks5(conn)
 	if err != nil {
 		_ = conn.Close()
 		return nil, err
 	}
-	pconn, err := s5d.udpSocks5(ctx, conn, network, address)
+	pconn, err := s5d.udpSocks5(ctx, aconn, network, address)
 	if err != nil {
-		_ = conn.Close()
+		_ = aconn.Close()
 		return nil, err
 	}
 	return pconn, nil
@@ -95,17 +95,17 @@ func (s5d *socks5Config) DialContext(ctx context.Context, network string, addr s
 	if err != nil {
 		return nil, err
 	}
-	conn, err = s5d.authSocks5(conn)
+	aconn, err := s5d.authSocks5(conn)
 	if err != nil {
 		_ = conn.Close()
 		return nil, err
 	}
-	err = s5d.cmdSocks5(conn, network, addr)
+	err = s5d.cmdSocks5(aconn, network, addr)
 	if err != nil {
-		_ = conn.Close()
+		_ = aconn.Close()
 		return nil, err
 	}
-	return conn, nil
+	return aconn, nil
 }
 
 func (s5d *socks5Config) dialSocks5(ctx, xctx context.Context) (conn net.Conn, err error) {
