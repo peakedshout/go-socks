@@ -63,7 +63,7 @@ func (s *Server) handleSocks4(conn *serverConn) (err error) {
 
 	switch buf[0] {
 	case socks4CDCONNECT:
-		if !s.cfg.CMDConfig.SwitchCMDBIND {
+		if !s.cfg.CMDConfig.SwitchCMDCONNECT {
 			return ErrSocks4CDNotSupport
 		}
 		err = s.handleSocks4CDCONNECT(conn, addr)
