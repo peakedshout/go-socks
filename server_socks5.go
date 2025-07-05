@@ -259,7 +259,7 @@ func (s *Server) handleSocks5CMDUDPASSOCIATE(conn *serverConn, addr string) erro
 	}
 
 	var handler CMDCMDUDPASSOCIATEHandler
-	if s.cfg.CMDConfig.CMDBINDHandler != nil {
+	if s.cfg.CMDConfig.CMDCMDUDPASSOCIATEHandler != nil {
 		handler = s.cfg.CMDConfig.CMDCMDUDPASSOCIATEHandler
 	} else {
 		handler = DefaultCMDCMDUDPASSOCIATEHandler

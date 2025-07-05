@@ -10,6 +10,18 @@ import (
 	"time"
 )
 
+func MarshalSocks5UDPASSOCIATEData(b []byte, addr net.Addr) []byte {
+	return marshalSocks5UDPASSOCIATEData(b, addr)
+}
+
+func UnmarshalSocks5UDPASSOCIATEData(b []byte) (data []byte, addr string, err error) {
+	return unmarshalSocks5UDPASSOCIATEData(b)
+}
+
+func UnmarshalSocks5UDPASSOCIATEData2(b []byte) (data []byte, addr *net.UDPAddr, err error) {
+	return unmarshalSocks5UDPASSOCIATEData2(b)
+}
+
 func marshalSocks5UDPASSOCIATEData(b []byte, addr net.Addr) []byte {
 	ab := getSocks5AddrBytes(addr)
 	bs := new(bytes.Buffer)
